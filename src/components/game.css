@@ -5,7 +5,7 @@
 .game-area {
   position: relative;
   height: 30rem;
-  width: 50rem;
+  width: 48rem;
   border: solid black 2px;
 }
 
@@ -15,7 +15,7 @@
   height: 6.5rem;
   width: 4rem;
   overflow: hidden;
-  transition: left;
+  transition: left 0.1s linear;
 }
 
 .man { 
@@ -30,11 +30,11 @@
 }
 
 .man.run.right {  
-  animation: running-right-man 0.6s infinite steps(5); 
+  animation: running-right-man 0.4s infinite steps(5); 
 }
 
 .man.run.left {  
-  animation: running-left-man 0.6s infinite steps(5);
+  animation: running-left-man 0.4s infinite steps(5);
 }
 
 
@@ -45,3 +45,13 @@
 @keyframes running-left-man {
   to {transform: translateX(20rem) scale(-1, 1);}  
 } 
+
+.falling-thing {
+  position: absolute;
+  width: 3rem; 
+  transition: top 0.5s linear;
+}
+
+.falling-thing>img {
+  width: 100%;
+}

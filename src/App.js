@@ -1,11 +1,14 @@
 import React from 'react';
 import Game from './components/Game';
+import ManState from './context/ManState';
 
 function App() {
   
   return (
     <div className="App">
-      <Game />
+      <ManState>
+        <Game />        
+      </ManState>
     </div>
   );
 }

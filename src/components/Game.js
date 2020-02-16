@@ -1,57 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment, useContext } from 'react';
 import Man from './Man';
-import './game.css';
+import FallingThing from './FallingThing';
+import './game.css'; 
+import Statistics from './Statistics';
 
+export default function Game() { 
 
-export default function Game() {
+  let fallingThingsPosition = [];
 
-  const [manAction, setManAction] = useState("stay");
-  const [manDuration, setManDuration] = useState("right");
-  const [manPosition, setManPositon] = useState(0);
+  for (let i = 0; i < 12; i++) {
+     fallingThingsPosition.push(i * 4);
+  }  
+
+  //mix array
+  fallingThingsPosition.sort(() => Math.random() - 0.5 );
+  
+  const [fallingThings, setFallingThings] = useState([]); 
+  const [positions, setPositions] = useState(fallingThingsPosition);  
 
   useEffect(() => {
-    document.onkeydown = run;
-    document.onkeyup = stay;
-    return () => {
-      document.removeEventListener('onkeydown', run);
-    };
-  })
+    if (fallingThings.length < 12) {
+      const timerID = setInterval(addFallingThing, 2000);
+      return () => {
+        clearInterval(timerID);
+      }
+    }
+  }, [fallingThings]);
+
+  const addFallingThing = () => {
+
+    let newFallingThings = [...fallingThings];   
+    let newPositions = [...positions]
+    newFallingThings.push(<FallingThing 
+                            key={positions[0]} 
+                            left={positions[0]}                
+                          />, 
+                          <FallingThing 
+                            key={positions[1]} 
+                            left={positions[1]}               
+                          />);
+    newPositions.shift();
+    newPositions.shift();
+
+    setPositions(newPositions);
+    setFallingThings(newFallingThings);
+  } 
+ 
   
-  const run = event => {
-    
-    if(event.key == "ArrowRight") {
-      setManDuration('right');
-      if(manPosition >= 45.5) {
-        setManAction('stay');
-        return;
-      }
-        setManAction('run');
-        setManPositon(prev => prev + 0.3);
-    }
-
-    if(event.key == "ArrowLeft") {
-      setManDuration('left');
-      if(manPosition <= 0) {
-        setManAction('stay');
-        return;
-      }
-      setManAction('run');
-      setManPositon(prev => prev - 0.3);
-    }
-  };
-
-  const stay = event => {
-    if(event.key == "ArrowRight" || "ArrowLeft") {
-      setManAction('stay');
-    }
-  };
 
   return (
     <div 
-      className="game-area"
-      onKeyDown={run}
-      onKeyUp={stay} >
-      <Man action={manAction} duration={manDuration} position={manPosition}/>
+      className="game-area">
+      <Man/>
+      {fallingThings}
+      <Statistics />
     </div>
   )
 }

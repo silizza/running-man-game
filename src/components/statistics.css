@@ -1,0 +1,10 @@
+.statistics {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: flex-end;
+}
