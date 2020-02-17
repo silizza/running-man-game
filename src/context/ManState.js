@@ -13,6 +13,8 @@ export default function ManState({children}) {
   const [fallingSpeed, setFallingSpeed] = useState(300);
   const [lifesCount, setLifesCount] = useState(10);
 
+  const [dangerTimer, setDangerTimer] = useState(null);
+  const [accelerationTimer, setAccelerationTimer] = useState(null);
   
   const run = event => {     
 
@@ -76,6 +78,7 @@ export default function ManState({children}) {
   }
 
   const hit = type => {
+    
     switch (type) {
       case 'diamond':
         setScore(prev => prev + 1);
@@ -97,10 +100,17 @@ export default function ManState({children}) {
         break;
 
       case 'danger':
+
+        if(dangerTimer) {
+          clearTimeout(dangerTimer);
+        }
+
         setFallingSpeed(100);
-        setTimeout(() => {
+        setDangerTimer(setTimeout(() => {
           setFallingSpeed(300);
-        }, 5000);
+          setDangerTimer(null);
+        }, 7000));
+        
         break;
 
       case 'heart':

@@ -49,7 +49,7 @@
 .falling-thing {
   position: absolute;
   width: 3rem; 
-  transition: top 0.5s linear;
+  transition: top 0.3s linear;
 }
 
 .falling-thing>img {

@@ -8,3 +8,11 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.lifes {
+  color: red;
+}
+
+.lifes>img {
+  height: 1rem;
+}

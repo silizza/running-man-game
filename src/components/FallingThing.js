@@ -52,7 +52,7 @@ export default function FallingThing({left}) {
   
   useEffect(() => {
 
-    if (topPosition >= 23.5) {
+    if (topPosition >= 22.5) {
       
       if (man.checkIfHit(left, type.name)) {
         upDateFalling();
@@ -70,7 +70,7 @@ export default function FallingThing({left}) {
     if (topPosition >= 29) {
         upDateFalling();
     } else {
-      setTopPosition(prev => prev + 1);
+      setTopPosition(prev => prev + 2);
     }
   }
 
