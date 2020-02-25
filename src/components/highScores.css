@@ -1,0 +1,13 @@
+.high-scores {
+  margin-left: 2rem;
+  text-align: center;
+  color: red;
+}
+
+.high-scores .flex-container {  
+  justify-content: space-between;
+  font-size: 1.2rem;  
+  color: rgb(56, 56, 56);
+  margin-top: 0.5rem;
+}
+

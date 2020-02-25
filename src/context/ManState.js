@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {ManContext} from './manContext';
 
 export default function ManState({children}) {
-
-
   
   const [action, setAction] = useState("stay");
   const [duration, setDuration] = useState("right");
@@ -18,11 +16,11 @@ export default function ManState({children}) {
   
   const run = event => {     
 
-    if(event.repeat) {
+    if (event.repeat) {
        return;
     }
 
-    if(event.key == "ArrowRight") {   
+    if (event.key == "ArrowRight") {   
       setDuration('right');
       if (position >= 43) {
         setPosition(44);
@@ -32,7 +30,7 @@ export default function ManState({children}) {
       setAction('run');       
     }
 
-    if(event.key == "ArrowLeft") {      
+    if (event.key == "ArrowLeft") {      
       setDuration('left');
       if (position <= 1) {
         setPosition(0);
@@ -64,7 +62,7 @@ export default function ManState({children}) {
   };        
 
   const stay = event => {
-    if(event.key == "ArrowRight" || "ArrowLeft") {
+    if (event.key == "ArrowRight" || "ArrowLeft") {
       setAction('stay');
     }
   };
@@ -85,7 +83,7 @@ export default function ManState({children}) {
         break;
       
       case 'stone':
-        if(lifesCount == 1) {
+        if (lifesCount == 1) {          
           onGameOver();
         } else {        
           setLifesCount(prev => prev - 1);
@@ -93,20 +91,25 @@ export default function ManState({children}) {
         break;
 
       case 'acceleration':
+        if (accelerationTimer) {
+          clearTimeout(accelerationTimer);
+        }
+
         setSpeed(10);
-        setTimeout(() => {
+        setAccelerationTimer( setTimeout(() => {
           setSpeed(30);
-        }, 5000);
+          setAccelerationTimer(null);
+        }, 5000));
         break;
 
       case 'danger':
 
-        if(dangerTimer) {
+        if (dangerTimer) {
           clearTimeout(dangerTimer);
         }
 
         setFallingSpeed(100);
-        setDangerTimer(setTimeout(() => {
+        setDangerTimer( setTimeout(() => {
           setFallingSpeed(300);
           setDangerTimer(null);
         }, 7000));
@@ -121,19 +124,22 @@ export default function ManState({children}) {
     }
   }
 
-  const onGameOver = () => {
+  const onGameOver = () => {    
+    setLifesCount(0);
+  }
+
+  const onNewGame = () => {
     setAction('stay');
     setPosition(0.2);
     setScore(0);
     setSpeed(30);
     setFallingSpeed(300);
     setLifesCount(10);
-    alert(`Game over! Your score: ${score}`);
   }
 
   return (
     <ManContext.Provider value={{
-      action, duration, position, run, stay, move, hit, checkIfHit, speed, fallingSpeed, score, lifesCount
+      action, duration, position, run, stay, move, hit, checkIfHit, speed, fallingSpeed, score, lifesCount, onNewGame
     }}>
       {children}
     </ManContext.Provider>

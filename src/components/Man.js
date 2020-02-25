@@ -5,8 +5,7 @@ import {ManContext} from '../context/manContext';
 
 export default function Man() { 
 
-  const {action, duration, position, run, stay, move, speed} = useContext(ManContext);
-  let timer;
+  const {action, duration, position, run, stay, move, speed} = useContext(ManContext);  
 
   useEffect(() => {   
 

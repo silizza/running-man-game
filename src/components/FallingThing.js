@@ -48,7 +48,6 @@ export default function FallingThing({left}) {
   const [topPosition, setTopPosition] = useState(-4);
   const [type, setType] = useState(getRandomType());
   const [isHidden, setIsHidden] = useState(false);
-
   
   useEffect(() => {
 
@@ -75,7 +74,7 @@ export default function FallingThing({left}) {
   }
 
   const upDateFalling = () => {
-    setIsHidden(true);
+      setIsHidden(true);
       setType(getRandomType());
       setTopPosition (-4);   
       setTimeout(() => setIsHidden(false), 200) 
